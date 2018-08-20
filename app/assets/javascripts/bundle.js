@@ -1508,6 +1508,8 @@ var _store = __webpack_require__(29);
 
 var _store2 = _interopRequireDefault(_store);
 
+var _selectors = __webpack_require__(135);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -1516,6 +1518,8 @@ document.addEventListener('DOMContentLoaded', function () {
   window.fetchAllPokemon = _api_util.fetchAllPokemon;
   window.receiveAllPokemon = _pokemon_actions.receiveAllPokemon;
   window.getState = store.getState;window.dispatch = store.dispatch;
+  window.requestAllPokemon = _pokemon_actions.requestAllPokemon;
+  window.selectAllPokemon = _selectors.selectAllPokemon;
 
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(
@@ -21038,12 +21042,28 @@ var fetchAllPokemon = exports.fetchAllPokemon = function fetchAllPokemon() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.requestAllPokemon = exports.receiveAllPokemon = exports.RECEIVE_ALL_POKEMON = undefined;
+
+var _api_util = __webpack_require__(27);
+
+var APIUtil = _interopRequireWildcard(_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 var RECEIVE_ALL_POKEMON = exports.RECEIVE_ALL_POKEMON = 'RECEIVE_ALL_POKEMON';
 
 var receiveAllPokemon = exports.receiveAllPokemon = function receiveAllPokemon(pokemon) {
   return {
     type: RECEIVE_ALL_POKEMON,
     pokemon: pokemon
+  };
+};
+
+var requestAllPokemon = exports.requestAllPokemon = function requestAllPokemon() {
+  return function (dispatch) {
+    return APIUtil.fetchAllPokemon().then(function (pokemon) {
+      return dispatch(receiveAllPokemon(pokemon));
+    });
   };
 };
 
@@ -24300,6 +24320,26 @@ var thunkMiddleware = function thunkMiddleware(_ref) {
 };
 
 exports.default = thunkMiddleware;
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/*
+Define and export a function, selectAllPokemon(state),
+which accepts the application state as an argument
+and exports an array of all the pokemon objects. Y
+*/
+
+var selectAllPokemon = exports.selectAllPokemon = function selectAllPokemon(state) {
+  return Object.values(state.entities.pokemon);
+};
 
 /***/ })
 /******/ ]);
