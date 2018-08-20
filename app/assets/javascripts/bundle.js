@@ -26668,9 +26668,13 @@ var PokemonIndexItem = function PokemonIndexItem(_ref) {
   var poke = _ref.poke;
   return _react2.default.createElement(
     'li',
-    null,
-    poke.name,
-    _react2.default.createElement('img', { src: poke.image_url })
+    { className: 'pokemon-index-item' },
+    _react2.default.createElement('img', { src: poke.image_url }),
+    _react2.default.createElement(
+      'span',
+      null,
+      poke.name
+    )
   );
 };
 
