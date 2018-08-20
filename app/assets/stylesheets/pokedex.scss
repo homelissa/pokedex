@@ -1,5 +1,27 @@
 @import "variables";
 
+.pokedex {
+  width: 300px;
+  height: 100%;
+  box-sizing: border-box;
+  border: 3px solid black;
+  border-radius: 10px;
+  margin-left: 40px;
+  padding-left: 25px;
+
+  > li {
+    a {
+      display: block;
+    }
+
+    &:active {
+      background-color: $red;
+    }
+  }
+
+}
+
+
 .pokemon-index-item {
   padding: 5px 10px;
   border-bottom: 1px solid $grey;
@@ -17,6 +39,6 @@
 
 }
 
-.pokemon-index-item:first-of-type {
-  border-top: 1px solid grey;
+.pokemon-index-item:last-of-type {
+  border-bottom: none;
 }
