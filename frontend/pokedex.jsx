@@ -7,6 +7,7 @@ import { selectAllPokemon } from './reducers/selectors';
 import Root from './root';
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const store = configureStore()
