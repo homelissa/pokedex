@@ -1533,10 +1533,10 @@ var receiveAllPokemon = exports.receiveAllPokemon = function receiveAllPokemon(p
   };
 };
 
-var receiveSinglePokemon = exports.receiveSinglePokemon = function receiveSinglePokemon(pokemon) {
+var receiveSinglePokemon = exports.receiveSinglePokemon = function receiveSinglePokemon(payload) {
   return {
     type: RECEIVE_SINGLE_POKEMON,
-    pokemon: pokemon
+    payload: payload
   };
 };
 
@@ -22691,7 +22691,7 @@ var pokemonReducer = function pokemonReducer() {
       var newState = (0, _merge3.default)({}, state, action.pokemon);
       return newState;
     case _pokemon_actions.RECEIVE_SINGLE_POKEMON:
-      var poke = action.pokemon;
+      var poke = action.payload.pokemon;
       return (0, _merge3.default)({}, state, _defineProperty({}, poke.id, poke));
     default:
       return state;
@@ -26680,16 +26680,16 @@ var PokemonIndex = function (_React$Component) {
 
       return _react2.default.createElement(
         'section',
-        null,
-        _react2.default.createElement(_reactRouterDom.Route, {
-          path: '/pokemon/:pokemonId',
-          component: _pokemon_detail_container2.default
-        }),
+        { className: 'main' },
         _react2.default.createElement(
           'ul',
           { className: 'pokedex' },
           pokemonItems
-        )
+        ),
+        _react2.default.createElement(_reactRouterDom.Route, {
+          path: '/pokemon/:pokemonId',
+          component: _pokemon_detail_container2.default
+        })
       );
     }
   }]);
@@ -30147,27 +30147,49 @@ var PokemonDetail = function (_React$Component) {
       if (!pokemon) return null;
 
       return _react2.default.createElement(
-        'div',
-        null,
+        'section',
+        { className: 'pokemon-detail' },
         _react2.default.createElement(
-          'li',
+          'figure',
           null,
-          pokemon.name
+          _react2.default.createElement('img', { src: pokemon.image_url, alt: pokemon.name })
         ),
         _react2.default.createElement(
-          'li',
+          'ul',
           null,
-          pokemon.attack
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          pokemon.defense
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          pokemon.moves
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'h2',
+              null,
+              pokemon.name
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            'Type: ',
+            pokemon.poke_type
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            'Attack: ',
+            pokemon.attack
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            'Defense: ',
+            pokemon.defense
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            'Moves: ',
+            pokemon.moves.join(', ')
+          )
         )
       );
     }
